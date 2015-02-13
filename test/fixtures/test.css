@@ -1,0 +1,9 @@
+.foo {
+  color: white;
+}
+.foo:hover {
+  color: red;
+}
+.bar {
+  color: white;
+}
