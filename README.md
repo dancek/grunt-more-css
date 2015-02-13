@@ -37,46 +37,50 @@ grunt.initConfig({
 
 ### Options
 
-#### options.separator
-Type: `String`
-Default value: `',  '`
+#### radical
+Type: `Boolean`
+Default value: `true`
 
-A string value that is used to do something with whatever.
+A boolean value indicating whether "radical compression" is enabled. See [more-css documentation](https://github.com/army8735/more) and Caveats (below).
 
-#### options.punctuation
-Type: `String`
-Default value: `'.'`
+#### report
+Choices: `'min'`, `'gzip'`  
+Default: `'min'`
 
-A string value that is used to do something else with whatever else.
+Either report only minification result or report minification and gzip results.
+This is useful to see exactly how well clean-css is performing but using `'gzip'` will make the task take 5-10x longer to complete. [Example output](https://github.com/sindresorhus/maxmin#readme).
 
 ### Usage Examples
 
 #### Default Options
-In this example, the default options are used to do something with whatever. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result would be `Testing, 1 2 3.`
+In this example, `src/style1.css` and `src/style2.css` are minified to a single file called `dest/style.min.css`.
 
 ```js
 grunt.initConfig({
   more_css: {
-    options: {},
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    my_target: {
+      files: {
+        'dest/style.min.css': ['src/style1.css', 'src/style2.css'],
+      },
     },
   },
 });
 ```
 
 #### Custom Options
-In this example, custom options are used to do something else with whatever else. So if the `testing` file has the content `Testing` and the `123` file had the content `1 2 3`, the generated result in this case would be `Testing: 1 2 3 !!!`
+In this example, radical compression is disabled and both minified and min+gzipped size is reported.
 
 ```js
 grunt.initConfig({
   more_css: {
     options: {
-      separator: ': ',
-      punctuation: ' !!!',
+      radical: false,
+      report: 'gzip',
     },
-    files: {
-      'dest/default_options': ['src/testing', 'src/123'],
+    my_target: {
+      files: {
+        'dest/style.min.css': ['src/style1.css', 'src/style2.css'],
+      },
     },
   },
 });
@@ -86,4 +90,4 @@ grunt.initConfig({
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-_(Nothing yet)_
+* 0.1.0 initial release
