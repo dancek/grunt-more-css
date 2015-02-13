@@ -40,6 +40,8 @@
     "gruntplugin"
   ],
   "dependencies": {
-    "more-css": "~0.9.1"
+    "more-css": "~0.9.1",
+    "chalk": "~0.5.1",
+    "maxmin": "~1.0.0"
   }
 }

@@ -8,42 +8,71 @@
 
 'use strict';
 
+var fs = require('fs');
+
+var moreCss = require('more-css');
+var chalk = require('chalk');
+var maxmin = require('maxmin');
+
 module.exports = function(grunt) {
 
-  // Please see the Grunt documentation for more information regarding task
-  // creation: http://gruntjs.com/creating-tasks
-
   grunt.registerMultiTask('more_css', 'Minify CSS using more-css.', function() {
-    // Merge task-specific and/or target-specific options with these defaults.
+    // option defaults
     var options = this.options({
-      punctuation: '.',
-      separator: ', '
+      radical: true,
+      report: 'min'
     });
 
-    // Iterate over all specified file groups.
+    // Iterate over all src-dest file pairs.
     this.files.forEach(function(f) {
-      // Concat specified files.
       var src = f.src.filter(function(filepath) {
         // Warn on and remove invalid source files (if nonull was set).
         if (!grunt.file.exists(filepath)) {
-          grunt.log.warn('Source file "' + filepath + '" not found.');
+          grunt.log.warn('Source file ' + chalk.cyan(filepath) + ' not found.');
           return false;
         } else {
           return true;
         }
-      }).map(function(filepath) {
-        // Read file source.
-        return grunt.file.read(filepath);
-      }).join(grunt.util.normalizelf(options.separator));
+      });
+      
+      // read CSS
+      var css = src.map(function (p) {
+        return fs.readFileSync(p, {
+          encoding: 'utf8'
+        });
+      }).join(grunt.util.normalizelf(grunt.util.linefeed));;
 
-      // Handle options.
-      src += options.punctuation;
+      if (css.length === 0) {
+        grunt.log.warn('Destination ' + chalk.cyan(f.dest) + ' not written because src files were empty.');
+        return;
+      }
+      
+      // Minify files, warn and fail on error.
+      var minified;
+      try {
+        minified = moreCss.compress(css, options.radical);
+      } catch (e) {
+        console.log(e);
+        var err = new Error('Minification failed.');
+        if (e.message) {
+          err.message += '\n' + e.message + '. \n';
+          if (e.line) {
+            err.message += 'Line ' + e.line + ' in ' + src + '\n';
+          }
+        }
+        err.origError = e;
+        grunt.log.warn('Minifying source ' + chalk.cyan(src) + ' failed.');
+        grunt.fail.warn(err);
+      }
+      
+      grunt.file.write(f.dest, minified);
 
-      // Write the destination file.
-      grunt.file.write(f.dest, src);
-
-      // Print a success message.
-      grunt.log.writeln('File "' + f.dest + '" created.');
+      // report success
+      if (options.report) {
+        var report = maxmin(css, minified, options.report === 'gzip');
+      }
+      grunt.log.writeln('File ' + chalk.cyan(f.dest) + ' created' + ((report) ? ': ' + report : '.'));
+    
     });
   });
 
