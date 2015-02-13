@@ -2,6 +2,8 @@
 
 > Minify CSS using more-css.
 
+[More-css](https://github.com/army8735/more) currently dominates [minification benchmarks](https://github.com/GoalSmashers/css-minification-benchmark) ([results](http://goalsmashers.github.io/css-minification-benchmark/)). This plugin makes it available for Grunt users.
+
 ## Getting Started
 This plugin requires Grunt `~0.4.5`
 
@@ -86,8 +88,14 @@ grunt.initConfig({
 });
 ```
 
+## Caveats
+
+The author doesn't understand the [more-css documentation](https://github.com/army8735/more). The "radical compression" option is probably dangerous and will break your CSS in some corner cases.
+
+To get a rough idea what the compression tricks might be, see [this blog post by Colt McAnlis](http://mainroach.blogspot.fi/2013/07/css-compression-minifier-roulette.html).
+
 ## Contributing
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
-* 0.1.0 initial release
+* 2015-02-13 v0.1.0 initial release
