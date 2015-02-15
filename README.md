@@ -1,4 +1,4 @@
-# grunt-more-css
+# grunt-more-css v0.1.0 [![Build Status](https://travis-ci.org/dancek/grunt-more-css.svg?branch=master)](https://travis-ci.org/dancek/grunt-more-css)
 
 > Minify CSS using more-css.
 
