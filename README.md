@@ -1,11 +1,11 @@
-# grunt-more-css v0.1.0 [![Build Status](https://travis-ci.org/dancek/grunt-more-css.svg?branch=master)](https://travis-ci.org/dancek/grunt-more-css)
+# grunt-more-css v0.1.1 [![Build Status](https://travis-ci.org/dancek/grunt-more-css.svg?branch=master)](https://travis-ci.org/dancek/grunt-more-css)
 
 > Minify CSS using more-css.
 
 [More-css](https://github.com/army8735/more) currently dominates [minification benchmarks](https://github.com/GoalSmashers/css-minification-benchmark) ([results](http://goalsmashers.github.io/css-minification-benchmark/)). This plugin makes it available for Grunt users.
 
 ## Getting Started
-This plugin requires Grunt `~0.4.5`
+This plugin requires Grunt `>=0.4`
 
 If you haven't used [Grunt](http://gruntjs.com/) before, be sure to check out the [Getting Started](http://gruntjs.com/getting-started) guide, as it explains how to create a [Gruntfile](http://gruntjs.com/sample-gruntfile) as well as install and use Grunt plugins. Once you're familiar with that process, you may install this plugin with this command:
 
@@ -46,7 +46,7 @@ Default value: `true`
 A boolean value indicating whether "radical compression" is enabled. See [more-css documentation](https://github.com/army8735/more) and Caveats (below).
 
 #### report
-Choices: `'min'`, `'gzip'`  
+Choices: `'min'`, `'gzip'`
 Default: `'min'`
 
 Either report only minification result or report minification and gzip results.
@@ -98,4 +98,5 @@ To get a rough idea what the compression tricks might be, see [this blog post by
 In lieu of a formal styleguide, take care to maintain the existing coding style. Add unit tests for any new or changed functionality. Lint and test your code using [Grunt](http://gruntjs.com/).
 
 ## Release History
+* 2016-02-25 v0.1.1 updated dependencies (support for Grunt 1.0)
 * 2015-02-13 v0.1.0 initial release
