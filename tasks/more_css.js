@@ -34,19 +34,19 @@ module.exports = function(grunt) {
           return true;
         }
       });
-      
+
       // read CSS
       var css = src.map(function (p) {
         return fs.readFileSync(p, {
           encoding: 'utf8'
         });
-      }).join(grunt.util.normalizelf(grunt.util.linefeed));;
+      }).join(grunt.util.normalizelf(grunt.util.linefeed));
 
       if (css.length === 0) {
         grunt.log.warn('Destination ' + chalk.cyan(f.dest) + ' not written because src files were empty.');
         return;
       }
-      
+
       // Minify files, warn and fail on error.
       var minified;
       try {
@@ -64,15 +64,16 @@ module.exports = function(grunt) {
         grunt.log.warn('Minifying source ' + chalk.cyan(src) + ' failed.');
         grunt.fail.warn(err);
       }
-      
+
       grunt.file.write(f.dest, minified);
 
       // report success
+      var report = '.';
       if (options.report) {
-        var report = maxmin(css, minified, options.report === 'gzip');
+        report = ': ' + maxmin(css, minified, options.report === 'gzip');
       }
-      grunt.log.writeln('File ' + chalk.cyan(f.dest) + ' created' + ((report) ? ': ' + report : '.'));
-    
+      grunt.log.writeln('File ' + chalk.cyan(f.dest) + ' created' + report);
+
     });
   });
 
